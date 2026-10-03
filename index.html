@@ -1,0 +1,2425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Prajwal Salgaonkar | Developer Portfolio</title>
+
+    <meta name="description"
+          content="Portfolio of Prajwal Salgaonkar — developer, student and technology enthusiast.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <style>
+
+        /* =========================================================
+           ROOT
+        ========================================================= */
+
+        :root {
+            --accent-color: #7c5cff;
+            --accent-secondary: #00e5ff;
+
+            --bg: #050510;
+            --bg-secondary: #09091a;
+
+            --text: #f5f7ff;
+            --text-soft: #a7abc3;
+
+            --glass: rgba(255, 255, 255, 0.055);
+            --glass-hover: rgba(255, 255, 255, 0.09);
+
+            --border: rgba(255, 255, 255, 0.12);
+            --border-hover: rgba(124, 92, 255, 0.55);
+
+            --shadow:
+                0 20px 80px rgba(0, 0, 0, 0.45);
+
+            --radius: 24px;
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(
+                    circle at 15% 15%,
+                    rgba(124, 92, 255, 0.14),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 30%,
+                    rgba(0, 229, 255, 0.10),
+                    transparent 25%
+                ),
+                var(--bg);
+
+            color: var(--text);
+            font-family: "Inter", sans-serif;
+            overflow-x: hidden;
+
+            cursor: none !important;
+        }
+
+        body,
+        a,
+        button {
+            cursor: none !important;
+        }
+
+        ::selection {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            border: none;
+            font-family: inherit;
+        }
+
+
+        /* =========================================================
+           CUSTOM CURSOR
+        ========================================================= */
+
+        .cursor-dot {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+
+            background: white;
+            border-radius: 50%;
+
+            pointer-events: none;
+            z-index: 99999;
+
+            transform: translate(-50%, -50%);
+            box-shadow:
+                0 0 15px rgba(255,255,255,.8),
+                0 0 35px var(--accent-color);
+        }
+
+        .cursor-ring {
+            position: fixed;
+
+            width: 38px;
+            height: 38px;
+
+            border: 1px solid rgba(255,255,255,.55);
+            border-radius: 50%;
+
+            pointer-events: none;
+            z-index: 99999;
+
+            transform: translate(-50%, -50%);
+
+            transition:
+                width .25s ease,
+                height .25s ease,
+                border-color .25s ease,
+                background .25s ease;
+        }
+
+        .cursor-ring.active {
+            width: 70px;
+            height: 70px;
+
+            background: rgba(124,92,255,.12);
+            border-color: var(--accent-color);
+        }
+
+
+        /* =========================================================
+           BACKGROUND
+        ========================================================= */
+
+        .background {
+            position: fixed;
+            inset: 0;
+
+            pointer-events: none;
+            z-index: -2;
+
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+
+            border-radius: 50%;
+
+            filter: blur(80px);
+            opacity: .32;
+        }
+
+        .orb-one {
+            width: 350px;
+            height: 350px;
+
+            background: var(--accent-color);
+
+            top: 5%;
+            left: -100px;
+        }
+
+        .orb-two {
+            width: 300px;
+            height: 300px;
+
+            background: var(--accent-secondary);
+
+            top: 45%;
+            right: -100px;
+        }
+
+        .orb-three {
+            width: 250px;
+            height: 250px;
+
+            background: #ff4ecd;
+
+            bottom: -100px;
+            left: 40%;
+        }
+
+        .grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 60px 60px;
+
+            mask-image: linear-gradient(
+                to bottom,
+                black,
+                transparent 90%
+            );
+        }
+
+
+        /* =========================================================
+           NAVIGATION
+        ========================================================= */
+
+        nav {
+            position: fixed;
+
+            top: 20px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: min(1100px, calc(100% - 32px));
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 14px 18px;
+
+            background: rgba(10,10,25,.58);
+            border: 1px solid var(--border);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            border-radius: 18px;
+
+            z-index: 1000;
+
+            box-shadow: 0 10px 40px rgba(0,0,0,.25);
+        }
+
+        .logo {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 20px;
+            font-weight: 700;
+
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: var(--accent-secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-soft);
+
+            font-size: 13px;
+            font-weight: 500;
+
+            transition: .3s ease;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-social {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-social a {
+            width: 35px;
+            height: 35px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 10px;
+
+            background: rgba(255,255,255,.05);
+            border: 1px solid var(--border);
+
+            transition: .3s ease;
+        }
+
+        .nav-social a:hover {
+            background: var(--accent-color);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================================================
+           GENERAL
+        ========================================================= */
+
+        main {
+            width: min(1150px, calc(100% - 36px));
+            margin: auto;
+        }
+
+        section {
+            padding: 120px 0;
+        }
+
+        .section-label {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 8px;
+
+            color: var(--accent-secondary);
+
+            font-size: 12px;
+            font-weight: 600;
+
+            letter-spacing: 2px;
+            text-transform: uppercase;
+
+            margin-bottom: 15px;
+        }
+
+        .section-label::before {
+            content: "";
+
+            width: 25px;
+            height: 1px;
+
+            background: var(--accent-secondary);
+        }
+
+        .section-title {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(32px, 5vw, 55px);
+
+            letter-spacing: -2px;
+
+            margin-bottom: 18px;
+        }
+
+        .section-description {
+            color: var(--text-soft);
+
+            max-width: 650px;
+
+            line-height: 1.8;
+        }
+
+
+        /* =========================================================
+           HERO
+        ========================================================= */
+
+        #home {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+
+            padding-top: 150px;
+        }
+
+        .hero {
+            width: 100%;
+
+            display: grid;
+
+            grid-template-columns:
+                1.35fr
+                .65fr;
+
+            gap: 70px;
+
+            align-items: center;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 10px;
+
+            padding: 9px 14px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 100px;
+
+            background: var(--glass);
+
+            backdrop-filter: blur(15px);
+
+            color: var(--text-soft);
+
+            font-size: 12px;
+
+            margin-bottom: 25px;
+        }
+
+        .status-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #35ff9b;
+
+            box-shadow: 0 0 12px #35ff9b;
+        }
+
+        .hero h1 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(50px, 8vw, 95px);
+
+            line-height: .95;
+
+            letter-spacing: -5px;
+
+            margin-bottom: 25px;
+        }
+
+        .hero h1 .gradient {
+            background:
+                linear-gradient(
+                    100deg,
+                    var(--accent-secondary),
+                    var(--accent-color),
+                    #ff4ecd
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .hero-description {
+            color: var(--text-soft);
+
+            font-size: 17px;
+
+            line-height: 1.8;
+
+            max-width: 650px;
+
+            margin-bottom: 35px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            padding: 14px 20px;
+
+            border-radius: 13px;
+
+            font-size: 13px;
+            font-weight: 600;
+
+            transition:
+                transform .3s ease,
+                background .3s ease;
+
+            border: 1px solid var(--border);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+        }
+
+        .btn-primary {
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--accent-color),
+                    #6242f5
+                );
+
+            box-shadow:
+                0 12px 35px rgba(124,92,255,.25);
+        }
+
+        .btn-secondary {
+            background: var(--glass);
+        }
+
+
+        /* =========================================================
+           HERO GLASS CARD
+        ========================================================= */
+
+        .hero-card {
+            position: relative;
+
+            min-height: 400px;
+
+            border: 1px solid var(--border);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.08),
+                    rgba(255,255,255,.025)
+                );
+
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+
+            border-radius: 30px;
+
+            padding: 25px;
+
+            box-shadow: var(--shadow);
+
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+
+            position: absolute;
+
+            width: 180px;
+            height: 180px;
+
+            border-radius: 50%;
+
+            background: var(--accent-color);
+
+            filter: blur(80px);
+
+            opacity: .35;
+
+            top: -70px;
+            right: -70px;
+        }
+
+        .github-profile {
+            position: relative;
+
+            display: flex;
+            flex-direction: column;
+
+            align-items: center;
+
+            text-align: center;
+
+            height: 100%;
+        }
+
+        .github-avatar {
+            width: 135px;
+            height: 135px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            border: 3px solid rgba(255,255,255,.2);
+
+            box-shadow:
+                0 0 0 10px rgba(124,92,255,.06),
+                0 20px 50px rgba(0,0,0,.35);
+
+            margin: 20px 0;
+        }
+
+        .github-profile h3 {
+            font-family: "Space Grotesk", sans-serif;
+            font-size: 24px;
+        }
+
+        .github-profile p {
+            color: var(--text-soft);
+            font-size: 13px;
+
+            margin-top: 7px;
+        }
+
+        .github-stats {
+            display: grid;
+
+            grid-template-columns: repeat(3,1fr);
+
+            width: 100%;
+
+            margin-top: auto;
+            padding-top: 30px;
+        }
+
+        .stat {
+            padding: 12px;
+
+            border-right: 1px solid var(--border);
+        }
+
+        .stat:last-child {
+            border-right: 0;
+        }
+
+        .stat strong {
+            display: block;
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 22px;
+        }
+
+        .stat span {
+            color: var(--text-soft);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+           ABOUT
+        ========================================================= */
+
+        .about-grid {
+            display: grid;
+
+            grid-template-columns: .8fr 1.2fr;
+
+            gap: 70px;
+
+            align-items: start;
+        }
+
+        .about-card {
+            padding: 30px;
+
+            border-radius: var(--radius);
+
+            border: 1px solid var(--border);
+
+            background: var(--glass);
+
+            backdrop-filter: blur(20px);
+        }
+
+        .about-card p {
+            color: var(--text-soft);
+
+            line-height: 1.9;
+
+            margin-bottom: 18px;
+        }
+
+        .about-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .skills {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 9px;
+
+            margin-top: 25px;
+        }
+
+        .skill {
+            padding: 9px 13px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 100px;
+
+            background: rgba(255,255,255,.035);
+
+            font-size: 12px;
+
+            color: #dfe2f2;
+
+            transition: .3s ease;
+        }
+
+        .skill:hover {
+            border-color: var(--accent-color);
+
+            background: rgba(124,92,255,.1);
+
+            transform: translateY(-3px);
+        }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .projects-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: end;
+
+            margin-bottom: 40px;
+        }
+
+        .projects-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        .project-card {
+            position: relative;
+
+            padding: 27px;
+
+            min-height: 250px;
+
+            border-radius: var(--radius);
+
+            background: var(--glass);
+
+            border: 1px solid var(--border);
+
+            backdrop-filter: blur(20px);
+
+            transform-style: preserve-3d;
+
+            transition:
+                border-color .3s ease,
+                background .3s ease;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-hover);
+
+            background: var(--glass-hover);
+        }
+
+        .project-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+        .project-icon {
+            width: 43px;
+            height: 43px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,92,255,.25),
+                    rgba(0,229,255,.12)
+                );
+
+            border: 1px solid var(--border);
+
+            color: var(--accent-secondary);
+        }
+
+        .project-link {
+            color: var(--text-soft);
+
+            transition: .3s ease;
+        }
+
+        .project-link:hover {
+            color: white;
+
+            transform: translate(3px,-3px);
+        }
+
+        .project-card h3 {
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: 21px;
+
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            line-height: 1.7;
+
+            margin-bottom: 22px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .project-tags span {
+            color: #c9cce0;
+
+            font-size: 10px;
+
+            padding: 6px 9px;
+
+            border-radius: 7px;
+
+            background: rgba(255,255,255,.04);
+
+            border: 1px solid var(--border);
+        }
+
+
+        /* =========================================================
+           GITHUB
+        ========================================================= */
+
+        .repo-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-top: 35px;
+        }
+
+        .repo-card {
+            padding: 22px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            background: var(--glass);
+
+            backdrop-filter: blur(20px);
+
+            transition: .3s ease;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-6px);
+
+            border-color: var(--border-hover);
+        }
+
+        .repo-card h4 {
+            font-size: 15px;
+
+            margin-bottom: 10px;
+        }
+
+        .repo-card p {
+            color: var(--text-soft);
+
+            font-size: 12px;
+
+            line-height: 1.6;
+
+            min-height: 55px;
+        }
+
+        .repo-meta {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 18px;
+
+            color: var(--text-soft);
+
+            font-size: 11px;
+        }
+
+        .repo-meta span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact {
+            text-align: center;
+
+            padding-bottom: 80px;
+        }
+
+        .contact-box {
+            position: relative;
+
+            padding: 70px 30px;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(124,92,255,.13),
+                    rgba(0,229,255,.05)
+                );
+
+            border: 1px solid var(--border);
+        }
+
+        .contact-box::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: var(--accent-color);
+
+            filter: blur(100px);
+
+            opacity: .15;
+
+            top: -150px;
+            right: -100px;
+        }
+
+        .contact h2 {
+            position: relative;
+            z-index: 1;
+
+            font-family: "Space Grotesk", sans-serif;
+
+            font-size: clamp(35px, 6vw, 65px);
+
+            letter-spacing: -3px;
+
+            margin-bottom: 15px;
+        }
+
+        .contact p {
+            position: relative;
+            z-index: 1;
+
+            color: var(--text-soft);
+
+            max-width: 600px;
+
+            margin: 0 auto 30px;
+
+            line-height: 1.8;
+        }
+
+        .contact-links {
+            position: relative;
+            z-index: 1;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================= */
+
+        footer {
+            width: min(1150px, calc(100% - 36px));
+
+            margin: auto;
+
+            padding: 30px 0 40px;
+
+            border-top: 1px solid var(--border);
+
+            display: flex;
+
+            justify-content: space-between;
+
+            color: var(--text-soft);
+
+            font-size: 11px;
+        }
+
+
+        /* =========================================================
+           LOADING
+        ========================================================= */
+
+        .loading {
+            color: var(--text-soft);
+
+            font-size: 13px;
+
+            padding: 20px 0;
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================= */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-card {
+                min-height: 360px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .repo-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            main {
+                width: min(100% - 25px, 1150px);
+            }
+
+            section {
+                padding: 85px 0;
+            }
+
+            nav {
+                width: calc(100% - 20px);
+            }
+
+            .nav-social {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 54px;
+
+                letter-spacing: -3px;
+            }
+
+            .hero-description {
+                font-size: 14px;
+            }
+
+            .hero-card {
+                min-height: 330px;
+            }
+
+            .projects-header {
+                display: block;
+            }
+
+            .repo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            footer {
+                flex-direction: column;
+
+                gap: 10px;
+
+                text-align: center;
+            }
+
+        }
+
+
+        @media (pointer: coarse) {
+
+            body,
+            a,
+            button {
+                cursor: auto !important;
+            }
+
+            .cursor-dot,
+            .cursor-ring {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+    <!-- =========================================================
+         BACKGROUND
+    ========================================================= -->
+
+    <div class="background">
+
+        <div class="orb orb-one"></div>
+        <div class="orb orb-two"></div>
+        <div class="orb orb-three"></div>
+
+        <div class="grid"></div>
+
+    </div>
+
+
+    <!-- =========================================================
+         CUSTOM CURSOR
+    ========================================================= -->
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+
+    <!-- =========================================================
+         NAVIGATION
+    ========================================================= -->
+
+    <nav>
+
+        <a href="#home" class="logo">
+            PS<span>.</span>
+        </a>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#about">About</a>
+            </li>
+
+            <li>
+                <a href="#projects">Projects</a>
+            </li>
+
+            <li>
+                <a href="#github">GitHub</a>
+            </li>
+
+            <li>
+                <a href="#contact">Contact</a>
+            </li>
+
+        </ul>
+
+        <div class="nav-social">
+
+            <a
+                href="https://github.com/salgaonkarprajwal"
+                target="_blank"
+                aria-label="GitHub">
+
+                <i class="fa-brands fa-github"></i>
+
+            </a>
+
+            <a
+                href="https://www.linkedin.com/in/prajwal-salgaonkar-b94860440"
+                target="_blank"
+                aria-label="LinkedIn">
+
+                <i class="fa-brands fa-linkedin-in"></i>
+
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <main>
+
+
+        <!-- =====================================================
+             HERO
+        ====================================================== -->
+
+        <section id="home">
+
+            <div class="hero">
+
+                <div class="hero-content">
+
+                    <div class="hero-tag">
+
+                        <span class="status-dot"></span>
+
+                        Available for opportunities
+
+                    </div>
+
+                    <h1>
+
+                        Hi, I'm
+                        <span class="gradient">
+                            Prajwal.
+                        </span>
+
+                    </h1>
+
+                    <p class="hero-description">
+
+                        A technology enthusiast and developer focused on
+                        building interactive web experiences, practical
+                        software projects and clean digital solutions.
+
+                        Currently pursuing engineering at
+                        <strong>
+                            Agnel Institute of Engineering and Management.
+                        </strong>
+
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <a
+                            href="#projects"
+                            class="btn btn-primary">
+
+                            View My Work
+
+                            <i class="fa-solid fa-arrow-down"></i>
+
+                        </a>
+
+                        <a
+                            href="https://www.linkedin.com/in/prajwal-salgaonkar-b94860440"
+                            target="_blank"
+                            class="btn btn-secondary">
+
+                            <i class="fa-brands fa-linkedin"></i>
+
+                            LinkedIn
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- GitHub Card -->
+
+                <div class="hero-card">
+
+                    <div class="github-profile">
+
+                        <img
+                            id="githubAvatar"
+                            class="github-avatar"
+                            src="https://github.com/salgaonkarprajwal.png"
+                            alt="Prajwal Salgaonkar GitHub profile">
+
+                        <h3 id="githubName">
+                            Prajwal Salgaonkar
+                        </h3>
+
+                        <p id="githubBio">
+                            Loading GitHub profile...
+                        </p>
+
+                        <div class="github-stats">
+
+                            <div class="stat">
+
+                                <strong id="followers">
+                                    --
+                                </strong>
+
+                                <span>
+                                    Followers
+                                </span>
+
+                            </div>
+
+                            <div class="stat">
+
+                                <strong id="following">
+                                    --
+                                </strong>
+
+                                <span>
+                                    Following
+                                </span>
+
+                            </div>
+
+                            <div class="stat">
+
+                                <strong id="publicRepos">
+                                    --
+                                </strong>
+
+                                <span>
+                                    Repositories
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             ABOUT
+        ====================================================== -->
+
+        <section id="about">
+
+            <div class="about-grid">
+
+                <div>
+
+                    <span class="section-label">
+                        About Me
+                    </span>
+
+                    <h2 class="section-title">
+                        Building things<br>
+                        that matter.
+                    </h2>
+
+                </div>
+
+
+                <div class="about-card">
+
+                    <p>
+
+                        I'm <strong>Prajwal Salgaonkar</strong>, an
+                        engineering student and aspiring software
+                        developer with an interest in web development,
+                        programming, databases and interactive digital
+                        experiences.
+
+                    </p>
+
+                    <p>
+
+                        I enjoy turning ideas into functional projects,
+                        experimenting with technologies and learning
+                        through hands-on development.
+
+                    </p>
+
+                    <p>
+
+                        My project experience includes web applications,
+                        API integration, database-driven systems,
+                        Java programming, UI development and
+                        interactive front-end experiments.
+
+                    </p>
+
+
+                    <div class="skills">
+
+                        <span class="skill">HTML</span>
+                        <span class="skill">CSS</span>
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">PHP</span>
+                        <span class="skill">MySQL</span>
+                        <span class="skill">Java</span>
+                        <span class="skill">C</span>
+                        <span class="skill">C++</span>
+                        <span class="skill">Python</span>
+                        <span class="skill">Git</span>
+                        <span class="skill">REST APIs</span>
+                        <span class="skill">UI/UX</span>
+                        <span class="skill">XAMPP</span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             PROJECTS
+        ====================================================== -->
+
+        <section id="projects">
+
+            <div class="projects-header">
+
+                <div>
+
+                    <span class="section-label">
+                        Selected Work
+                    </span>
+
+                    <h2 class="section-title">
+                        Projects
+                    </h2>
+
+                </div>
+
+                <p class="section-description">
+                    A collection of academic, experimental and
+                    development projects.
+                </p>
+
+            </div>
+
+
+            <div class="projects-grid">
+
+
+                <!-- Weather -->
+
+                <article class="project-card tilt-card">
+
+                    <div class="project-top">
+
+                        <div class="project-icon">
+
+                            <i class="fa-solid fa-cloud-sun"></i>
+
+                        </div>
+
+                        <a
+                            href="https://github.com/salgaonkarprajwal"
+                            target="_blank"
+                            class="project-link">
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+                    <h3>
+                        Weather Forecasting System
+                    </h3>
+
+                    <p>
+
+                        A database-connected weather web application
+                        featuring user authentication, weather
+                        searches and live weather data through an API.
+
+                    </p>
+
+                    <div class="project-tags">
+
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>PHP</span>
+                        <span>MySQL</span>
+                        <span>API</span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Accessible Travel -->
+
+                <article class="project-card tilt-card">
+
+                    <div class="project-top">
+
+                        <div class="project-icon">
+
+                            <i class="fa-solid fa-wheelchair"></i>
+
+                        </div>
+
+                        <a
+                            href="https://www.linkedin.com/in/prajwal-salgaonkar-b94860440"
+                            target="_blank"
+                            class="project-link">
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+                    <h3>
+                        Accessible Travel Platform
+                    </h3>
+
+                    <p>
+
+                        An accessibility-focused app concept designed
+                        to help people with disabilities find assistance
+                        and navigate travel experiences more comfortably.
+
+                    </p>
+
+                    <div class="project-tags">
+
+                        <span>UI/UX</span>
+                        <span>Accessibility</span>
+                        <span>App Design</span>
+                        <span>Research</span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- Pixel Bat -->
+
+                <article class="project-card tilt-card">
+
+                    <div class="project-top">
+
+                        <div class="project-icon">
+
+                            <i class="fa-solid fa-moon"></i>
+
+                        </div>
+
+                        <a
+                            href="https://github.com/salgaonkarprajwal"
+                            target="_blank"
+                            class="project-link">
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+                    <h3>
+                        Interactive Pixel Bat
+                    </h3>
+
+                    <p>
+
+                        A creative front-end animation experiment featuring
+                        a detailed pixel-art bat that follows the user's
+                        cursor using JavaScript interactions.
+
+                    </p>
+
+                    <div class="project-tags">
+
+                        <span>HTML</span>
+                        <span>CSS</span>
+                        <span>JavaScript</span>
+                        <span>Animation</span>
+
+                    </div>
+
+                </article>
+
+
+                <!-- CRC -->
+
+                <article class="project-card tilt-card">
+
+                    <div class="project-top">
+
+                        <div class="project-icon">
+
+                            <i class="fa-solid fa-network-wired"></i>
+
+                        </div>
+
+                        <a
+                            href="https://github.com/salgaonkarprajwal"
+                            target="_blank"
+                            class="project-link">
+
+                            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        </a>
+
+                    </div>
+
+                    <h3>
+                        CRC Sender & Receiver
+                    </h3>
+
+                    <p>
+
+                        A Java implementation demonstrating Cyclic
+                        Redundancy Check error detection through
+                        sender and receiver programs.
+
+                    </p>
+
+                    <div class="project-tags">
+
+                        <span>Java</span>
+                        <span>Networking</span>
+                        <span>CRC</span>
+                        <span>Error Detection</span>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             GITHUB
+        ====================================================== -->
+
+        <section id="github">
+
+            <span class="section-label">
+                Open Source
+            </span>
+
+            <h2 class="section-title">
+                GitHub Activity
+            </h2>
+
+            <p class="section-description">
+
+                These repositories are loaded directly from the
+                GitHub API and automatically sorted by star count.
+
+            </p>
+
+
+            <div
+                id="repoContainer"
+                class="repo-grid">
+
+                <div class="loading">
+                    Loading repositories...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+             CONTACT
+        ====================================================== -->
+
+        <section id="contact" class="contact">
+
+            <div class="contact-box">
+
+                <span class="section-label">
+                    Get In Touch
+                </span>
+
+                <h2>
+                    Let's build something.
+                </h2>
+
+                <p>
+
+                    Interested in collaborating, discussing a project,
+                    or simply connecting? Feel free to reach out through
+                    LinkedIn or explore my work on GitHub.
+
+                </p>
+
+                <div class="contact-links">
+
+                    <a
+                        href="mailto:"
+                        class="btn btn-primary">
+
+                        <i class="fa-solid fa-envelope"></i>
+
+                        Contact Me
+
+                    </a>
+
+                    <a
+                        href="https://www.linkedin.com/in/prajwal-salgaonkar-b94860440"
+                        target="_blank"
+                        class="btn btn-secondary">
+
+                        <i class="fa-brands fa-linkedin"></i>
+
+                        LinkedIn
+
+                    </a>
+
+                    <a
+                        href="https://github.com/salgaonkarprajwal"
+                        target="_blank"
+                        class="btn btn-secondary">
+
+                        <i class="fa-brands fa-github"></i>
+
+                        GitHub
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer>
+
+        <span>
+            © 2026 Prajwal Salgaonkar
+        </span>
+
+        <span>
+            Designed & built with HTML • CSS • JavaScript
+        </span>
+
+    </footer>
+
+
+    <!-- =========================================================
+         JAVASCRIPT
+    ========================================================== -->
+
+    <script>
+
+        /* =====================================================
+           GITHUB CONFIG
+        ====================================================== */
+
+        const GITHUB_USERNAME = "salgaonkarprajwal";
+
+        const githubUserAPI =
+            `https://api.github.com/users/${GITHUB_USERNAME}`;
+
+        const githubReposAPI =
+            `https://api.github.com/users/${GITHUB_USERNAME}/repos?per_page=100&sort=updated`;
+
+
+        /* =====================================================
+           GITHUB USER
+        ====================================================== */
+
+        async function loadGithubProfile() {
+
+            try {
+
+                const response =
+                    await fetch(githubUserAPI);
+
+                if (!response.ok) {
+                    throw new Error("GitHub API request failed");
+                }
+
+                const user =
+                    await response.json();
+
+
+                const avatar =
+                    document.getElementById("githubAvatar");
+
+                const name =
+                    document.getElementById("githubName");
+
+                const bio =
+                    document.getElementById("githubBio");
+
+                const followers =
+                    document.getElementById("followers");
+
+                const following =
+                    document.getElementById("following");
+
+                const repos =
+                    document.getElementById("publicRepos");
+
+
+                avatar.src =
+                    user.avatar_url ||
+                    `https://github.com/${GITHUB_USERNAME}.png`;
+
+                name.textContent =
+                    user.name ||
+                    user.login;
+
+                bio.textContent =
+                    user.bio ||
+                    "Developer & technology enthusiast.";
+
+                followers.textContent =
+                    user.followers;
+
+                following.textContent =
+                    user.following;
+
+                repos.textContent =
+                    user.public_repos;
+
+
+            } catch (error) {
+
+                console.error(
+                    "GitHub profile error:",
+                    error
+                );
+
+                document.getElementById("githubBio")
+                    .textContent =
+                    "Developer & technology enthusiast.";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           GITHUB REPOSITORIES
+        ====================================================== */
+
+        async function loadGithubRepos() {
+
+            const container =
+                document.getElementById("repoContainer");
+
+            try {
+
+                const response =
+                    await fetch(githubReposAPI);
+
+                if (!response.ok) {
+                    throw new Error("GitHub repositories request failed");
+                }
+
+                const repos =
+                    await response.json();
+
+
+                const topRepos =
+                    repos
+                        .filter(repo => !repo.fork)
+                        .sort(
+                            (a, b) =>
+                                b.stargazers_count -
+                                a.stargazers_count
+                        )
+                        .slice(0, 6);
+
+
+                if (topRepos.length === 0) {
+
+                    container.innerHTML = `
+                        <div class="loading">
+                            No public repositories found.
+                        </div>
+                    `;
+
+                    return;
+                }
+
+
+                container.innerHTML =
+                    topRepos.map(repo => {
+
+                        const description =
+                            repo.description ||
+                            "No description available.";
+
+                        return `
+
+                            <a
+                                class="repo-card"
+                                href="${repo.html_url}"
+                                target="_blank"
+                                rel="noopener noreferrer">
+
+                                <h4>
+                                    ${escapeHTML(repo.name)}
+                                </h4>
+
+                                <p>
+                                    ${escapeHTML(description)}
+                                </p>
+
+                                <div class="repo-meta">
+
+                                    <span>
+                                        <i class="fa-solid fa-star"></i>
+                                        ${repo.stargazers_count}
+                                    </span>
+
+                                    <span>
+                                        <i class="fa-solid fa-code-fork"></i>
+                                        ${repo.forks_count}
+                                    </span>
+
+                                    <span>
+                                        ${repo.language || "Code"}
+                                    </span>
+
+                                </div>
+
+                            </a>
+
+                        `;
+
+                    }).join("");
+
+
+                initializeTiltCards();
+
+
+            } catch (error) {
+
+                console.error(
+                    "GitHub repositories error:",
+                    error
+                );
+
+                container.innerHTML = `
+
+                    <div class="loading">
+
+                        GitHub repositories could not be
+                        loaded right now.
+
+                        <br><br>
+
+                        <a
+                            href="https://github.com/${GITHUB_USERNAME}"
+                            target="_blank"
+                            style="color:var(--accent-secondary)">
+
+                            View GitHub Profile →
+
+                        </a>
+
+                    </div>
+
+                `;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           HTML ESCAPE
+        ====================================================== */
+
+        function escapeHTML(value) {
+
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =====================================================
+           CUSTOM CURSOR
+        ====================================================== */
+
+        const cursorDot =
+            document.querySelector(".cursor-dot");
+
+        const cursorRing =
+            document.querySelector(".cursor-ring");
+
+
+        let mouseX = 0;
+        let mouseY = 0;
+
+        let ringX = 0;
+        let ringY = 0;
+
+
+        window.addEventListener(
+            "mousemove",
+            (event) => {
+
+                mouseX =
+                    event.clientX;
+
+                mouseY =
+                    event.clientY;
+
+                cursorDot.style.left =
+                    `${mouseX}px`;
+
+                cursorDot.style.top =
+                    `${mouseY}px`;
+
+            }
+        );
+
+
+        function animateCursor() {
+
+            ringX +=
+                (mouseX - ringX) * .14;
+
+            ringY +=
+                (mouseY - ringY) * .14;
+
+            cursorRing.style.left =
+                `${ringX}px`;
+
+            cursorRing.style.top =
+                `${ringY}px`;
+
+            requestAnimationFrame(
+                animateCursor
+            );
+
+        }
+
+        animateCursor();
+
+
+        function cursorHover() {
+
+            document
+                .querySelectorAll("a, button, .project-card, .repo-card")
+                .forEach(element => {
+
+                    element.addEventListener(
+                        "mouseenter",
+                        () => {
+
+                            cursorRing.classList.add(
+                                "active"
+                            );
+
+                        }
+                    );
+
+                    element.addEventListener(
+                        "mouseleave",
+                        () => {
+
+                            cursorRing.classList.remove(
+                                "active"
+                            );
+
+                        }
+                    );
+
+                });
+
+        }
+
+
+        /* =====================================================
+           3D CARD TILT
+        ====================================================== */
+
+        function initializeTiltCards() {
+
+            document
+                .querySelectorAll(".tilt-card, .repo-card")
+                .forEach(card => {
+
+                    card.addEventListener(
+                        "mousemove",
+                        (event) => {
+
+                            const rect =
+                                card.getBoundingClientRect();
+
+                            const x =
+                                event.clientX -
+                                rect.left;
+
+                            const y =
+                                event.clientY -
+                                rect.top;
+
+                            const centerX =
+                                rect.width / 2;
+
+                            const centerY =
+                                rect.height / 2;
+
+                            const rotateX =
+                                ((y - centerY) /
+                                    centerY) * -4;
+
+                            const rotateY =
+                                ((x - centerX) /
+                                    centerX) * 4;
+
+                            card.style.transform =
+                                `perspective(900px)
+                                 rotateX(${rotateX}deg)
+                                 rotateY(${rotateY}deg)
+                                 translateY(-5px)`;
+
+                        }
+                    );
+
+
+                    card.addEventListener(
+                        "mouseleave",
+                        () => {
+
+                            card.style.transform =
+                                "";
+
+                        }
+                    );
+
+                });
+
+        }
+
+
+        /* =====================================================
+           GSAP HERO ANIMATION
+        ====================================================== */
+
+        function initializeAnimations() {
+
+            const timeline =
+                gsap.timeline({
+                    defaults: {
+                        ease: "power3.out"
+                    }
+                });
+
+
+            timeline
+                .from(
+                    "nav",
+                    {
+                        y: -30,
+                        opacity: 0,
+                        duration: .8
+                    }
+                )
+
+                .from(
+                    ".hero-tag",
+                    {
+                        y: 20,
+                        opacity: 0,
+                        duration: .6
+                    },
+                    "-=.3"
+                )
+
+                .from(
+                    ".hero h1",
+                    {
+                        y: 60,
+                        opacity: 0,
+                        duration: 1
+                    },
+                    "-=.4"
+                )
+
+                .from(
+                    ".hero-description",
+                    {
+                        y: 30,
+                        opacity: 0,
+                        duration: .7
+                    },
+                    "-=.5"
+                )
+
+                .from(
+                    ".hero-buttons",
+                    {
+                        y: 20,
+                        opacity: 0,
+                        duration: .6
+                    },
+                    "-=.4"
+                )
+
+                .from(
+                    ".hero-card",
+                    {
+                        x: 70,
+                        opacity: 0,
+                        scale: .95,
+                        duration: 1
+                    },
+                    "-=.8"
+                );
+
+        }
+
+
+        /* =====================================================
+           SCROLL REVEALS
+        ====================================================== */
+
+        function initializeScrollAnimations() {
+
+            const observer =
+                new IntersectionObserver(
+                    (entries) => {
+
+                        entries.forEach(entry => {
+
+                            if (
+                                entry.isIntersecting
+                            ) {
+
+                                gsap.fromTo(
+                                    entry.target,
+
+                                    {
+                                        y: 50,
+                                        opacity: 0
+                                    },
+
+                                    {
+                                        y: 0,
+                                        opacity: 1,
+                                        duration: .8,
+                                        ease: "power3.out"
+                                    }
+                                );
+
+                                observer.unobserve(
+                                    entry.target
+                                );
+
+                            }
+
+                        });
+
+                    },
+                    {
+                        threshold: .12
+                    }
+                );
+
+
+            document
+                .querySelectorAll(
+                    ".about-card, .project-card, .repo-card, .contact-box"
+                )
+                .forEach(element => {
+
+                    observer.observe(element);
+
+                });
+
+        }
+
+
+        /* =====================================================
+           SMOOTH PARALLAX BACKGROUND
+        ====================================================== */
+
+        window.addEventListener(
+            "mousemove",
+            event => {
+
+                const x =
+                    event.clientX /
+                    window.innerWidth;
+
+                const y =
+                    event.clientY /
+                    window.innerHeight;
+
+
+                gsap.to(
+                    ".orb-one",
+                    {
+                        x: x * 40,
+                        y: y * 30,
+                        duration: 1.5,
+                        ease: "power2.out"
+                    }
+                );
+
+
+                gsap.to(
+                    ".orb-two",
+                    {
+                        x: x * -30,
+                        y: y * -25,
+                        duration: 1.5,
+                        ease: "power2.out"
+                    }
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           INITIALIZE
+        ====================================================== */
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            () => {
+
+                loadGithubProfile();
+
+                loadGithubRepos();
+
+                cursorHover();
+
+                initializeAnimations();
+
+                initializeScrollAnimations();
+
+                initializeTiltCards();
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
